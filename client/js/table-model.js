@@ -6,7 +6,11 @@ class TableModel {
   }
 
   _getCellId(location) {
+<<<<<<< HEAD
     return `${location.col}:${location.row}`;
+=======
+    return `{location.col}:${location.row}`;
+>>>>>>> 23f9f41
   }
 
   getValue(location) {
