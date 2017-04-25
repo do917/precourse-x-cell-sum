@@ -2,11 +2,6 @@ table {
   border-collapse: collapse;
 }
 
-
-body {
-  background-color: green;
-}
-
 th,
 td {
   border: 1px solid black;
@@ -16,3 +11,6 @@ td {
   background-color: blue;
 }
 
+td.sum {
+  background-color: #7FFF00;
+}

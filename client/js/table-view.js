@@ -14,13 +14,13 @@ class TableView {
   initDomReferences() {
     this.headerRowEl = document.querySelector('THEAD');
     this.sheetBodyEl = document.querySelector('TBODY');
-    this.sumBodyEl = document.querySelector('TBODY');
+    this.sumRowEl = document.querySelector('TBODY');
   }
 
   renderTable() {
     this.renderTableHeader();
     this.renderTableBody();
-    this.renderTableSum();
+    this.renderRowSum();
   }
 
   renderTableHeader() {
@@ -46,22 +46,21 @@ class TableView {
     this.sheetBodyEl.appendChild(fragment);
   }
 
-
-  renderTableSum() {
-    const fragment = document.createDocumentFragment();
+  renderRowSum() {
+    //const fragment = document.createDocumentFragment();
     const tr = createTR();
     
     for (let col = 0; col < this.model.numCols; col++) {
       const position = { col: col };
       const value = 'NO VALUE';
       const td = createTD(value);
+      td.className = "sum";
       tr.appendChild(td) ;
     }
-    fragment.appendChild(tr);
-
-    this.sumBodyEl.appendChild(fragment);
+    
+    //fragment.appendChild(tr);
+    this.sumRowEl.appendChild(tr);
   }
-  
 }
 
 module.exports = TableView;
