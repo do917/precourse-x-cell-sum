@@ -2,9 +2,17 @@ table {
   border-collapse: collapse;
 }
 
+
+body {
+  background-color: green;
+}
+
 th,
 td {
   border: 1px solid black;
   min-width: 100px;
+  height: 25px;
   padding: 3px;
+  background-color: blue;
 }
+
