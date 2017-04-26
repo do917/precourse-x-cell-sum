@@ -1,5 +1,6 @@
 const { getLetterRange } = require('./array-util');
 const { removeChildren, createTR, createTH, createTD } = require('./dom-util');
+const { columnSum } = require('./column-sum');
 
 class TableView {
   constructor(model) {
@@ -59,8 +60,9 @@ class TableView {
       const tr = createTR();
       for (let col = 0; col < this.model.numCols; col++) {
         const position = { col: col, row: row };
-        const value = this.model.getValue(position);
+        const value = this.model.getValue(position) || '' ;
         const td = createTD(value);
+        this.model.setValue(position, value);
 
         if (this.isCurrentCell(col, row)) {
           td.className = 'current-cell';
@@ -80,12 +82,14 @@ class TableView {
     
     for (let col = 0; col < this.model.numCols; col++) {
       const position = { col: col, 'cellSum':'cellSum' };
-      const value = 'NO VALUE';
+      const value = columnSum(this.model.getColValues(col));
       const td = createTD(value);
       tr.appendChild(td);
     }
     
     //fragment.appendChild(tr);
+    removeChildren(this.sumRowEl);
+    //console.log(this.model.getColValues(0));
     this.sumRowEl.appendChild(tr);
   }
 
@@ -107,6 +111,7 @@ class TableView {
     this.currentCellLocation = { col: col, row: row};
     this.renderTableBody();
     this.renderFormulaBar();
+    this.renderRowSum();
   }
 }
 

@@ -5,7 +5,7 @@ const TableView = require('./table-view');
 const model = new TableModel();
 const tableView = new TableView(model);
 tableView.init();
-},{"./table-model":4,"./table-view":5}],2:[function(require,module,exports){
+},{"./table-model":5,"./table-view":6}],2:[function(require,module,exports){
 const getRange = function(fromNum, toNum) {
   return Array.from({ length: toNum - fromNum + 1 }, (unused, i) => i + fromNum);
 };
@@ -21,6 +21,22 @@ module.exports = {
   getLetterRange: getLetterRange
 };
 },{}],3:[function(require,module,exports){
+const columnSum = function(column) {
+  // column is expected to be an array of all values of one column
+  // each item in the array is expected to be a string type
+  const sum = column.reduce((sum, num) => sum + parseInt(num, 10), 0);
+
+  if (column.every(num => num === '') || isNaN(sum)) {
+    return '';
+  } else {
+    return sum.toString();
+  }
+}
+
+module.exports = {
+  columnSum: columnSum
+};
+},{}],4:[function(require,module,exports){
 const removeChildren = function(parentEl) {
   while (parentEl.firstChild) {
     parentEl.removeChild(parentEl.firstChild);
@@ -48,7 +64,7 @@ module.exports = {
   createTD: createTD,
   removeChildren: removeChildren
 };
-},{}],4:[function(require,module,exports){
+},{}],5:[function(require,module,exports){
 class TableModel {
   constructor(numCols=10, numRows=20) {
     this.numCols = numCols;
@@ -67,12 +83,24 @@ class TableModel {
   setValue(location, value) {
     this.data[this._getCellId(location)] = value;
   }
+
+  getColValues(col) {
+    const colValues = [];
+
+    for (let row = 0; row < this.numRows; row++) {
+      const currentLocation = {row: row, col: col};
+      colValues.push(this.getValue(currentLocation));
+    }
+
+    return colValues;
+  }
 }
 
 module.exports = TableModel;
-},{}],5:[function(require,module,exports){
+},{}],6:[function(require,module,exports){
 const { getLetterRange } = require('./array-util');
 const { removeChildren, createTR, createTH, createTD } = require('./dom-util');
+const { columnSum } = require('./column-sum');
 
 class TableView {
   constructor(model) {
@@ -132,8 +160,9 @@ class TableView {
       const tr = createTR();
       for (let col = 0; col < this.model.numCols; col++) {
         const position = { col: col, row: row };
-        const value = this.model.getValue(position);
+        const value = this.model.getValue(position) || '' ;
         const td = createTD(value);
+        this.model.setValue(position, value);
 
         if (this.isCurrentCell(col, row)) {
           td.className = 'current-cell';
@@ -153,12 +182,14 @@ class TableView {
     
     for (let col = 0; col < this.model.numCols; col++) {
       const position = { col: col, 'cellSum':'cellSum' };
-      const value = 'NO VALUE';
+      const value = columnSum(this.model.getColValues(col));
       const td = createTD(value);
       tr.appendChild(td);
     }
     
     //fragment.appendChild(tr);
+    removeChildren(this.sumRowEl);
+    //console.log(this.model.getColValues(0));
     this.sumRowEl.appendChild(tr);
   }
 
@@ -180,8 +211,9 @@ class TableView {
     this.currentCellLocation = { col: col, row: row};
     this.renderTableBody();
     this.renderFormulaBar();
+    this.renderRowSum();
   }
 }
 
 module.exports = TableView;
-},{"./array-util":2,"./dom-util":3}]},{},[1]);
+},{"./array-util":2,"./column-sum":3,"./dom-util":4}]},{},[1]);
