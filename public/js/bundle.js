@@ -82,13 +82,19 @@ class TableView {
 
   init() {
     this.initDomReferences();
+    this.initCurrentCell();
     this.renderTable();
+    this.attachEventHandlers();
   }
 
   initDomReferences() {
-    this.headerRowEl = document.querySelector('THEAD');
-    this.sheetBodyEl = document.querySelector('TBODY');
-    this.sumRowEl = document.querySelector('TBODY');
+    this.headerRowEl = document.querySelector('#table-head');
+    this.sheetBodyEl = document.querySelector('#table-body');
+    this.sumRowEl = document.querySelector('#sum-row');
+  }
+
+  initCurrentCell() {
+    this.currentCellLocation = { col: 0, row: 0 };
   }
 
   renderTable() {
@@ -104,6 +110,11 @@ class TableView {
       .forEach(th => this.headerRowEl.appendChild(th))
   }
 
+  isCurrentCell(col, row) {
+    return this.currentCellLocation.col === col &&
+           this.currentCellLocation.row === row;
+  }
+
   renderTableBody() {
     const fragment = document.createDocumentFragment();
     for (let row = 0; row < this.model.numRows; row++) {
@@ -112,6 +123,11 @@ class TableView {
         const position = { col: col, row: row };
         const value = this.model.getValue(position);
         const td = createTD(value);
+
+        if (this.isCurrentCell(col, row)) {
+          td.className = 'current-cell';
+        }
+
         tr.appendChild(td);
       }
       fragment.appendChild(tr);
@@ -125,15 +141,32 @@ class TableView {
     const tr = createTR();
     
     for (let col = 0; col < this.model.numCols; col++) {
-      const position = { col: col };
+      const position = { col: col, 'cellSum':'cellSum' };
       const value = 'NO VALUE';
       const td = createTD(value);
-      td.className = "sum";
-      tr.appendChild(td) ;
+      tr.appendChild(td);
     }
     
     //fragment.appendChild(tr);
     this.sumRowEl.appendChild(tr);
+  }
+
+  attachEventHandlers() {
+    this.sheetBodyEl.addEventListener('click', this.handleSheetClick.bind(this));
+  }
+
+  isColumnHeaderRow(row) {
+    return row < 1;
+  }
+
+  handleSheetClick(evt) {
+    const col = evt.target.cellIndex;
+    const row = evt.target.parentElement.rowIndex;
+
+    if (!this.isColumnHeaderRow(row)) {
+      this.currentCellLocation = { col: col, row: row};
+      this.renderTableBody();
+    }
   }
 }
 

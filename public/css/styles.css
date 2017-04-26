@@ -8,9 +8,12 @@ td {
   min-width: 100px;
   height: 25px;
   padding: 3px;
-  background-color: blue;
 }
 
-td.sum {
+#sum-row {
   background-color: #7FFF00;
+}
+
+.current-cell {
+  background-color: pink;
 }
