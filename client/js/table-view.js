@@ -77,7 +77,6 @@ class TableView {
   }
 
   renderRowSum() {
-    //const fragment = document.createDocumentFragment();
     const tr = createTR();
     
     for (let col = 0; col < this.model.numCols; col++) {
@@ -87,9 +86,7 @@ class TableView {
       tr.appendChild(td);
     }
     
-    //fragment.appendChild(tr);
     removeChildren(this.sumRowEl);
-    //console.log(this.model.getColValues(0));
     this.sumRowEl.appendChild(tr);
   }
 

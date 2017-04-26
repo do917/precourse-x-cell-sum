@@ -9,8 +9,8 @@ describe('columnSum()', () => {
     expect(columnSum(['', '', ''])).toBe('');
   });
 
-  it('returns \'\' for array including any non numbers without undefined values', () => {
-    expect(columnSum([33, 5, ''])).toBe('');
+  it('returns 38 for array including empty strings', () => {
+    expect(columnSum(['33', '5', ''])).toBe('38');
   });
 
   it('returns the number for a single item array', () => {
