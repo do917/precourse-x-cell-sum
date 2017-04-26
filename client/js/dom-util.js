@@ -17,12 +17,11 @@ const createEl = function(tagName) {
 const createTR = createEl('TR');
 const createTH = createEl('TH');
 const createTD = createEl('TD');
-const createTS = createEl('TS');
+
 
 module.exports = {
   createTR: createTR,
   createTH: createTH,
   createTD: createTD,
-  createTS: createTS,
   removeChildren: removeChildren
 };

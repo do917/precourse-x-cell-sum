@@ -10,7 +10,7 @@ describe('table-view', () => {
     const html = fs.readFileSync(fixturePath, 'utf8');
     document.documentElement.innerHTML = html;
   });
-/*
+
   describe('formula bar', () => {
     it('makes changes TO the value of the current cell', () => {
       // set up the initial state
@@ -19,7 +19,7 @@ describe('table-view', () => {
       view.init();
 
       // inspect the initial state
-      let trs = document.querySelectorAll('#table-body');
+      let trs = document.querySelectorAll('TBODY TR');
       let td = trs[0].cells[0];
       expect(td.textContent).toBe('');
 
@@ -28,10 +28,9 @@ describe('table-view', () => {
       view.handleFormulaBarChange();
 
       // inspect the resulting state
-      trs = document.querySelectorAll('#table-body');
+      trs = document.querySelectorAll('TBODY TR');
       expect(trs[0].cells[0].textContent).toBe('65');
     });
-
 
     it('updates FROM the value of the current cell', () => {
       // set up the initial state
@@ -45,7 +44,7 @@ describe('table-view', () => {
       expect(formulaBarEl.value).toBe('');
 
       // simulate user action
-      const trs = document.querySelectorAll('#table-body');
+      const trs = document.querySelectorAll('TBODY TR');
       trs[1].cells[2].click();
 
       // inspect the resulting state
@@ -100,7 +99,6 @@ describe('table-view', () => {
     });
   });
 
-*/
   describe('table header', () => {
     it('has valid column header labels', () => {
       // set up the intial state
