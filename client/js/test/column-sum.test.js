@@ -9,7 +9,7 @@ describe('columnSum()', () => {
     expect(columnSum(['', '', ''])).toBe('');
   });
 
-  it('returns 38 for array including empty strings', () => {
+  it('returns 38 for an array with numbers that also includes empty string', () => {
     expect(columnSum(['33', '5', ''])).toBe('38');
   });
 
