@@ -18,6 +18,10 @@ describe('columnSum()', () => {
     expect(columnSum(['33', '5', 'randomwords', 'abc123'])).toBe('38');
   });
 
+  it('returns \'\' for an array with no numbers', () => {
+    expect(columnSum(['abc123', ''])).toBe('');
+  });
+
   it('returns the number for a single item array', () => {
     expect(columnSum(['4'])).toBe('4');
   });
@@ -38,5 +42,9 @@ describe('isOnlyNum()', () => {
 
   it('returns false for a string mixed with numbers', () => {
     expect(isOnlyNum('123string')).toBe(false);
+  });
+
+  it('returns false for a an empty string', () => {
+    expect(isOnlyNum('')).toBe(false);
   });
 });

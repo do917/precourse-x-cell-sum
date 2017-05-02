@@ -4,16 +4,22 @@ const columnSum = function(column) {
   const sum = column.filter(num => num !== '' && isOnlyNum(num))
                     .reduce((sum, num) => sum + parseInt(num, 10), 0);
 
-  if (column.every(num => num === '') || isNaN(sum)) {
+  if (column.every(num => num === '')) {
     return '';
-  } else {
+  } else if (column.some(eachBox => isOnlyNum(eachBox))) {
     return sum.toString();
+  } else {
+    return '';
   }
 }
 
-const isOnlyNum = function(userInput) {
+const isOnlyNum = function(phrase) {
   const numbers = '0123456789.-'
-  return userInput.split('').every(letter => numbers.includes(letter));
+  if (phrase === '') {
+    return false;
+  } else {
+  return phrase.split('').every(letter => numbers.includes(letter));
+  }
 }
 
 module.exports = {
