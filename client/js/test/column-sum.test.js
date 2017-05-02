@@ -1,5 +1,5 @@
 const { columnSum,
-        isOnlyNum } = require('../column-sum');
+        isNum } = require('../column-sum');
 
 describe('columnSum()', () => {
   it('returns \'\' for an empty array', () => {
@@ -35,16 +35,16 @@ describe('columnSum()', () => {
   });
 });
 
-describe('isOnlyNum()', () => {
+describe('isNum()', () => {
   it('returns true for a string with only numbers', () => {
-    expect(isOnlyNum('123')).toBe(true);
+    expect(isNum('123')).toBe(true);
   });
 
   it('returns false for a string mixed with numbers', () => {
-    expect(isOnlyNum('123string')).toBe(false);
+    expect(isNum('123string')).toBe(false);
   });
 
   it('returns false for a an empty string', () => {
-    expect(isOnlyNum('')).toBe(false);
+    expect(isNum('')).toBe(false);
   });
 });

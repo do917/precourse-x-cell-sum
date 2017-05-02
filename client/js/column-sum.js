@@ -1,19 +1,17 @@
 const columnSum = function(column) {
   // column is expected to be an array of all values of one column
   // each item in the array is expected to be a string type
-  const sum = column.filter(num => num !== '' && isOnlyNum(num))
+  const sum = column.filter(num => num !== '' && isNum(num))
                     .reduce((sum, num) => sum + parseInt(num, 10), 0);
 
-  if (column.every(num => num === '')) {
-    return '';
-  } else if (column.some(eachBox => isOnlyNum(eachBox))) {
+  if (column.some(eachBox => isNum(eachBox))) {
     return sum.toString();
   } else {
     return '';
   }
 }
 
-const isOnlyNum = function(phrase) {
+const isNum = function(phrase) {
   const numbers = '0123456789.-'
   if (phrase === '') {
     return false;
@@ -24,5 +22,5 @@ const isOnlyNum = function(phrase) {
 
 module.exports = {
   columnSum: columnSum,
-  isOnlyNum: isOnlyNum
+  isNum: isNum
 };
