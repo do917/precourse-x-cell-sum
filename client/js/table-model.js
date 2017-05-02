@@ -21,7 +21,7 @@ class TableModel {
     const colValues = [];
 
     for (let row = 0; row < this.numRows; row++) {
-      const currentLocation = {row: row, col: col};
+      const currentLocation = {col: col, row: row};
       colValues.push(this.getValue(currentLocation));
     }
 
