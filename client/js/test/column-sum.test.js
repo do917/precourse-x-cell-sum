@@ -10,11 +10,11 @@ describe('columnSum()', () => {
     expect(columnSum(['', '', ''])).toBe('');
   });
 
-  it('returns 38 for an array with numbers that also includes empty string', () => {
+  it('returns correct sum for an array with numbers that also includes empty string', () => {
     expect(columnSum(['33', '5', ''])).toBe('38');
   });
 
-  it('returns 38 for an array with numbers that also includes random strings', () => {
+  it('returns correct sum for an array with numbers that also includes random strings', () => {
     expect(columnSum(['33', '5', 'randomwords', 'abc123'])).toBe('38');
   });
 
